@@ -1,13 +1,19 @@
 body {
-    background: #849644;
+    background: rgba(10, 78, 161, 0.58);
 
 }
 
 .answerbox {
-    background: #ffffff;
+    margin:auto;
+    background: rgba(255, 255, 255, 0.8);
     width:500px;
     height:350px;
     padding:10px;
-    border:3px solid #9b3b00;
+    border:3px solid #000000;
+    border-radius: 20px;
 
+}
+
+h1 {
+    text-align: center;
 }
