@@ -3,7 +3,7 @@ body {
 
 }
 
-.answerbox {
+#answerbox {
     margin:auto;
     background: rgba(255, 255, 255, 0.86);
     max-width:600px;
@@ -22,4 +22,15 @@ header {
     font-size: 200%;
     margin:-30px;
 
+}
+
+#questions {
+    text-align: center;
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: 200%;
+    margin-top: 20px;
+}
+
+#answers {
+    margin-bottom: 20px;
 }
