@@ -1,3 +1,3 @@
-let Questions = require('./Questions');
+let Name = require('./Name.js');
 
-Questions();
+Name();

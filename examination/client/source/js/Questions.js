@@ -7,22 +7,34 @@
 function Questions() {
 
     let req = new XMLHttpRequest();
+    req.open('GET', 'http://vhost3.lnu.se:20080/question/1');
+    req.setRequestHeader('Content-type', 'application/json');
+    req.send();
+
+
+
     req.addEventListener('load', function() {
 
-        let questObj = req.responseXML;
-        let question = '';
-        let x = questObj.getElementsByTagName('QUESTION');
-        for (let i = 0; i < x.length; i++) {
-            question += x[i].childNodes[0].nodeValue
+        let questObj = JSON.parse(req.responseText);
+        let textNode = document.createTextNode(questObj.question);
+        let pTag = document.querySelector('#questions');
+        pTag.appendChild(textNode);
+
+        let reqPost = new XMLHttpRequest();
+        let nextUrl = questObj.nextURL;
+        reqPost.open('POST', nextUrl);
+        reqPost.setRequestHeader('Content-type', 'application/json');
+
+        if (questObj.alternatives) {
+
         }
-        document.getElementById('questions') = question;
+
+        reqPost.send();
 
     });
 
-    let data = null;
-    req.open('GET', 'http://vhost3.lnu.se:20080/question/1');
-    req.setRequestHeader('Content-type', 'application/json')
-    req.send(data);
+
+
 }
 
 module.exports = Questions;
