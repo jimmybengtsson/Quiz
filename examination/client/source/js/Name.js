@@ -4,25 +4,51 @@
 
 'use strict';
 
+let Questions = require('./Questions.js');
+
 let saveToStorage = [];
 
 function Name() {
 
-    let nameTemplate = document.querySelector('#name');
-    let nameClone = document.importNode(nameTemplate.content, true);
+    /*let pTag = document.getElementById('name');
+    let text = document.createTextNode('Please write your name here!');
+    pTag.appendChild(text);
+    let textInput = document.createElement('input');
+    pTag.appendChild(textInput);
+    let button = document.createElement('button');
+    let buttonText = document.createTextNode('Lets Play!');
+    button.appendChild(buttonText);
+    pTag.appendChild(button);
 
-    nameClone.addEventListener('load', function() {
+    button.addEventListener('click', function() {
 
-        let newTag = document.createElement('p');
-        let newText = document.createTextNode('Test');
+        while (pTag.hasChildNodes()) {
+            pTag.removeChild(pTag.firstChild);
+        }
+        Questions();
+    })*/
 
-        newTag.appendChild(newText);
+    let template = document.querySelector('#name');
+    let clone = document.importNode(template.content, true);
+    document.querySelector('#answerbox').appendChild(clone);
 
-        nameClone.appendChild(newTag);
+    let submit = document.querySelector('#submit');
+    let input = document.querySelector('#name')
 
-        document.querySelector('#answerbox').appendChild(newTag);
+    submit.addEventListener('click', function() {
 
-    });
+
+
+        Questions();
+    })
+
+
+
+
 }
+
+
+
+
 
 module.exports = Name;
