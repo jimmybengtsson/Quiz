@@ -33,16 +33,11 @@ function Name() {
     document.querySelector('#answerbox').appendChild(clone);
 
     let submit = document.querySelector('#submit');
-    let input = document.querySelector('#name');
+    let input = document.querySelector('#text');
 
-    submit.addEventListener('click', function(startQst) {
+    submit.addEventListener('click', function(e) {
 
-        startQst.preventDefault();
-
-        while (document.querySelector('#answerbox').hasChildNodes()) {
-            document.querySelector('#answerbox').removeChild(document.querySelector('#answerbox').firstChild);
-        }
-
+        e.preventDefault();
 
         Questions();
 

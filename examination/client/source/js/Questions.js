@@ -6,6 +6,8 @@
 
 function Questions() {
 
+    console.log('test');
+
     let template = document.querySelector('#questions');
     let clone = document.importNode(template.content, true);
     document.querySelector('#answerbox').appendChild(clone);
