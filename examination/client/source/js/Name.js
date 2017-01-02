@@ -35,12 +35,19 @@ function Name() {
     let submit = document.querySelector('#submit');
     let input = document.querySelector('#name');
 
-    submit.addEventListener('click', function() {
+    submit.addEventListener('click', function(startQst) {
+
+        startQst.preventDefault();
+
+        while (document.querySelector('#answerbox').hasChildNodes()) {
+            document.querySelector('#answerbox').removeChild(document.querySelector('#answerbox').firstChild);
+        }
+
 
         Questions();
 
 
-    })
+    });
 
 
 
@@ -53,11 +60,3 @@ function Name() {
 
 module.exports = Name;
 
-
-}
-
-
-
-
-
-module.exports = Name;
