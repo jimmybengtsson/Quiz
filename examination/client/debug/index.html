@@ -2,48 +2,52 @@
 
 <html>
 
-    <head>
+<head>
 
-        <title>Quiz</title>
-        <link rel="stylesheet" type="text/css" href="stylesheet/style.css" />
-        <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
-        <meta charset="utf-8" />
+    <title>Quiz</title>
+    <link rel="stylesheet" type="text/css" href="stylesheet/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+    <meta charset="utf-8" />
 
-    </head>
+</head>
 
-    <body>
+<body>
 
-    <header>
-        <h1>QUiZ</h1>
-    </header>
+<header>
+    <h1>QUiZ</h1>
+</header>
 
-        <div id="answerbox">
+<div id="answerbox">
 
-            <template id="name">
+    <template id="name">
 
-                <p>Please write your name here!</p>
+        <p>Please write your name here!</p>
 
-                <form>
+        <form>
 
-                    <input type="text" id="text" value="Name">
-                    <input type="submit" id="submit" value="Let's Play!"
+            <input type="text" id="text" value="Name">
 
-                </form>
+            <input type="submit" id="submit" value="Let's Play!">
+        </form>
 
-            </template>
+    </template>
 
+    <template id="questions">
 
-            <template id="questions">
+        <p id="qst"></p>
 
-                    <p id="qst"></p>
+        <form>
 
+            <input type="text" id="answer" value="...">
 
+            <input type="submit" id="submitanswer" value="Submit">
 
-            </template>
+        </form>
+    </template>
 
-            </div>
+</div>
 
-    <script src="javascript/build.js" defer></script>
-    </body>
+<script src="javascript/build.js" defer></script>
+</body>
 
 </html>

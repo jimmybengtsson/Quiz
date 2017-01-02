@@ -11,38 +11,47 @@ let saveToStorage = [];
 function Name() {
 
     /*let pTag = document.getElementById('name');
-    let text = document.createTextNode('Please write your name here!');
-    pTag.appendChild(text);
-    let textInput = document.createElement('input');
-    pTag.appendChild(textInput);
-    let button = document.createElement('button');
-    let buttonText = document.createTextNode('Lets Play!');
-    button.appendChild(buttonText);
-    pTag.appendChild(button);
+     let text = document.createTextNode('Please write your name here!');
+     pTag.appendChild(text);
+     let textInput = document.createElement('input');
+     pTag.appendChild(textInput);
+     let button = document.createElement('button');
+     let buttonText = document.createTextNode('Lets Play!');
+     button.appendChild(buttonText);
+     pTag.appendChild(button);
 
-    button.addEventListener('click', function() {
+     button.addEventListener('click', function() {
 
-        while (pTag.hasChildNodes()) {
-            pTag.removeChild(pTag.firstChild);
-        }
-        Questions();
-    })*/
+     while (pTag.hasChildNodes()) {
+     pTag.removeChild(pTag.firstChild);
+     }
+     Questions();
+     })*/
 
     let template = document.querySelector('#name');
     let clone = document.importNode(template.content, true);
     document.querySelector('#answerbox').appendChild(clone);
 
     let submit = document.querySelector('#submit');
-    let input = document.querySelector('#name')
+    let input = document.querySelector('#name');
 
     submit.addEventListener('click', function() {
 
-
-
         Questions();
+
+
     })
 
 
+
+
+}
+
+
+
+
+
+module.exports = Name;
 
 
 }
