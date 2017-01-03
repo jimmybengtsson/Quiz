@@ -4,11 +4,12 @@
 
 function GameOver() {
 
-    let template = document.querySelector('#gameover');
+    let template = document.querySelector('#answerbox template');
     let clone = document.importNode(template.content, true);
-    document.querySelector('#answerbox').appendChild(clone);
+    let classClone = clone.querySelector('.gameover');
+    document.querySelector('#answerbox').appendChild(classClone);
 
-    let button = document.querySelector('#playagain');
+    let button = classClone.querySelector('#playagain');
 
     button.addEventListener('click', function() {
 

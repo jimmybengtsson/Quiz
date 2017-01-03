@@ -8,6 +8,10 @@ let Questions = require('./Questions.js');
 
 let saveToStorage = [];
 
+let config = {
+    url: 'http://vhost3.lnu.se:20080/question/1'
+};
+
 function Name() {
 
     /*let pTag = document.getElementById('name');
@@ -28,9 +32,10 @@ function Name() {
      Questions();
      })*/
 
-    let template = document.querySelector('#name');
+    let template = document.querySelector('#answerbox template');
     let clone = document.importNode(template.content, true);
-    document.querySelector('#answerbox').appendChild(clone);
+    let classClone = clone.querySelector('.name');
+    document.querySelector('#answerbox').appendChild(classClone);
 
     let submit = document.querySelector('#submit');
     let input = document.querySelector('#text');
@@ -39,7 +44,9 @@ function Name() {
 
         e.preventDefault();
 
-        Questions();
+        document.querySelector('#answerbox').removeChild(classClone);
+
+        Questions(config);
 
 
     });

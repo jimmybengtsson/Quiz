@@ -1,13 +1,13 @@
-/*let Name = require('./Name.js');
+let Name = require('./Name.js');
 
 Name();
 
 /*let GameOver = require('./GameOver.js');
 
-GameOver();*/
+GameOver();
 
 
 let Questions = require('./Questions.js');
 
-Questions();
+Questions();*/
 
