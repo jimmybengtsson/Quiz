@@ -1,8 +1,36 @@
 "use strict";
 
-function Ajax() {
+let GameOver = require('./GameOver.js');
+
+let Questions = require('./Questions.js');
+
+function request(config, callback) {
+
+    config.method = config.method || 'GET';
+    config.url = config.url || '';
+    config.contentType = config.contentType || 'application/json';
+
+    let req = new XMLHttpRequest();
+
+    req.addEventListener('load', function() {
+
+        if (req.status > 400) {
+            callback(req.status);
+        }
+
+        callback(null, req.responseText);
+
+
+    });
+
+    req.open(config.method, config.url);
+    req.setRequestHeader('Content-type', config.contentType);
+
+    req.send(config.answer);
 
 
 }
 
-module.exports = Ajax;
+module.exports = {
+    request: request
+};
