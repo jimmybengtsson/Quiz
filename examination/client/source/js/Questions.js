@@ -7,30 +7,61 @@
 let GameOver = require('./GameOver.js');
 let Ajax = require('./Ajax.js');
 
-function Questions(input) {
+let config = {
+
+    url: 'http://vhost3.lnu.se:20080/question/1',
+    method: 'GET',
+    contentType: 'application/json',
+
+};
+
+function makeUL(array) {
+
+    let list = document.createElement('ul');
+
+    for (let i = 0; i < array.length; i++) {
+
+        let item = document.createElement('li');
+
+        let aTag = document.createElement('a');
+
+
+        aTag.appendChild(document.createTextNode(array[i]));
+
+        item.appendChild(aTag);
+
+        list.appendChild(item);
+    }
+
+
+    return list;
+
+}
+
+function Questions(input, ajaxConfig) {
 
     let answer = {
         answer: input.value
     };
 
-    let ajaxConfig = {
-        url: 'http://vhost3.lnu.se:20080/question/1',
-        method: 'GET',
-        contentType: 'application/json',
+    ajaxConfig = {
+        url: config.url,
+        method: config.method,
+        contentType: config.contentType,
         answer: JSON.stringify(answer)
 
     };
 
     Ajax.request(ajaxConfig, function(error, data) {
-        if(error) {
-            throw new Error('Network Error' + error);
-        }
 
         let requestData = JSON.parse(data);
 
-        console.log(data);
+        if(error) {
+            throw new Error('Network Error' + error);
 
-        if (requestData.alternatives === undefined) {
+        } else if (requestData.alternatives === undefined) {
+
+            //If single answer.
 
             let template = document.querySelector('#answerbox template');
             let clone = document.importNode(template.content, true);
@@ -49,6 +80,8 @@ function Questions(input) {
 
                 e.preventDefault();
 
+                document.querySelector('#answerbox').removeChild(classClone);
+
                 ajaxConfig.url = requestData.nextURL;
                 ajaxConfig.method = 'POST';
                 let answerPost = {
@@ -59,10 +92,38 @@ function Questions(input) {
                 console.log(ajaxConfig.answer);
 
                 Ajax.request(ajaxConfig, function(error, data) {
-                    console.log(data);
+
+                    let nextRequestData = JSON.parse(data);
+
+                    config.url = nextRequestData.nextURL;
+
+                    Questions(config);
+
                 });
 
             });
+        } else {
+
+            // If multichoice answer.
+
+            let template = document.querySelector('#answerbox template');
+            let clone = document.importNode(template.content, true);
+            let classClone = clone.querySelector('.questionlist');
+            document.querySelector('#answerbox').appendChild(classClone);
+
+            let textNode = document.createTextNode(requestData.question);
+            let qstTag = classClone.querySelector('.qst');
+            qstTag.appendChild(textNode);
+
+            let answerList = classClone.querySelector('.answerlist');
+            let alternatives = requestData.alternatives;
+
+            console.log(alternatives);
+
+            let list = makeUL(Object.values(alternatives));
+
+
+            answerList.appendChild(list);
         }
 
     });

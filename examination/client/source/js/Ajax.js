@@ -14,8 +14,14 @@ function request(config, callback) {
 
     req.addEventListener('load', function() {
 
+        let responseText = JSON.parse(req.responseText);
+
         if (req.status > 400) {
             callback(req.status);
+
+        } else if (responseText.message === 'Wrong answer! :(') {
+
+            GameOver();
         }
 
         callback(null, req.responseText);
