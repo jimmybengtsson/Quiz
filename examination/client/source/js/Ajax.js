@@ -1,7 +1,6 @@
 "use strict";
 
 let GameOver = require('./GameOver.js');
-let Questions = require('./Questions.js');
 let HighScore = require('./HighScore.js');
 
 function request(config, callback) {

@@ -4,7 +4,6 @@
 
 'use strict';
 
-let GameOver = require('./GameOver.js');
 let Ajax = require('./Ajax.js');
 
 let config = {
@@ -15,34 +14,6 @@ let config = {
 
 };
 
-function makeUL(Object) {
-
-    let list = document.createElement('ul');
-
-    for (let i = 0; i < Object.length; i++) {
-
-        let item = document.createElement('li');
-
-        let bText = Object[i];
-
-        let bTag = document.createElement('input');
-        bTag.setAttribute('type', 'submit');
-        bTag.setAttribute('value', bText.value);
-        bTag.setAttribute('name', Object.keys(array[i]));
-
-        console.log(Object.keys(Object[i]));
-
-
-
-        item.appendChild(bTag);
-
-        list.appendChild(item);
-    }
-
-
-    return list;
-
-}
 
 function Questions(input, ajaxConfig) {
 
@@ -145,8 +116,6 @@ function Questions(input, ajaxConfig) {
 
             answerList.appendChild(list);
 
-            let nextAnswerList = classClone.querySelectorAll('.answerlist');
-
             answerList.addEventListener('click', function(e){
 
                 console.log(e.target.name);
@@ -172,88 +141,9 @@ function Questions(input, ajaxConfig) {
                     Questions(config);
 
                 });
-
             });
-
-
         }
-
     });
-
-
-
-
-
-    /* req.addEventListener('load', function() {
-
-     let questObj = JSON.parse(req.responseText);
-     let textNode = document.createTextNode(questObj.question);
-     let pTag = document.querySelector('#questions');
-     pTag.appendChild(textNode);
-
-     let reqPost = new XMLHttpRequest();
-     let nextUrl = questObj.nextURL;
-     reqPost.open('POST', nextUrl);
-     reqPost.setRequestHeader('Content-type', 'application/json');
-
-     if (questObj.alternatives) {
-
-     }
-
-     reqPost.send();
-
-     });*/
-
-
-
 }
 
 module.exports = Questions;
-
-/*
-let template = document.querySelector('#answerbox template');
-let clone = document.importNode(template.content, true);
-let classClone = clone.querySelector('.questions');
-document.querySelector('#answerbox').appendChild(classClone);
-
-
-let questObj = JSON.parse(req.responseText);
-let textNode = document.createTextNode(questObj.question);
-
-let qstTag = classClone.querySelector('.qst');
-qstTag.appendChild(textNode);
-
-let answerInput = classClone.querySelector('#answer');
-let answerButton = classClone.querySelector('#submitanswer');
-
-answerButton.addEventListener('click', function(e) {
-
-    e.preventDefault();
-
-    let reqPost = new XMLHttpRequest();
-    let nextUrl = questObj.nextURL;
-    reqPost.open('POST', nextUrl);
-    reqPost.setRequestHeader('Content-type', 'application/json');
-
-    let answerToSend = {answer: answerInput.value};
-
-    reqPost.send(JSON.stringify(answerToSend));
-
-    reqPost.addEventListener('load', function() {
-
-        questObj = JSON.parse(reqPost.responseText);
-
-        if (questObj.message === 'Wrong answer! :(') {
-
-            document.querySelector('#answerbox').removeChild(classClone);
-
-            GameOver();
-
-        }
-
-
-
-
-    });
-});
-*/
