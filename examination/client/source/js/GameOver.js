@@ -9,7 +9,7 @@ function GameOver() {
     let classClone = clone.querySelector('.gameover');
     document.querySelector('#answerbox').appendChild(classClone);
 
-    let button = classClone.querySelector('#playagain');
+    let button = classClone.querySelector('.playagain');
 
     button.addEventListener('click', function() {
 

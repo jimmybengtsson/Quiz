@@ -15,20 +15,26 @@ let config = {
 
 };
 
-function makeUL(array) {
+function makeUL(Object) {
 
     let list = document.createElement('ul');
 
-    for (let i = 0; i < array.length; i++) {
+    for (let i = 0; i < Object.length; i++) {
 
         let item = document.createElement('li');
 
-        let aTag = document.createElement('a');
+        let bText = Object[i];
+
+        let bTag = document.createElement('input');
+        bTag.setAttribute('type', 'submit');
+        bTag.setAttribute('value', bText.value);
+        bTag.setAttribute('name', Object.keys(array[i]));
+
+        console.log(Object.keys(Object[i]));
 
 
-        aTag.appendChild(document.createTextNode(array[i]));
 
-        item.appendChild(aTag);
+        item.appendChild(bTag);
 
         list.appendChild(item);
     }
@@ -120,10 +126,56 @@ function Questions(input, ajaxConfig) {
 
             console.log(alternatives);
 
-            let list = makeUL(Object.values(alternatives));
+            let list = document.createElement('ul');
+
+            for (let i in alternatives) {
+
+                let item = document.createElement('li');
+
+                let bTag = document.createElement('input');
+                bTag.setAttribute('type', 'submit');
+                bTag.setAttribute('value', alternatives[i]);
+                bTag.setAttribute('name', i);
+
+                item.appendChild(bTag);
+
+                list.appendChild(item);
+            }
 
 
             answerList.appendChild(list);
+
+            let nextAnswerList = classClone.querySelectorAll('.answerlist');
+
+            answerList.addEventListener('click', function(e){
+
+                console.log(e.target.name);
+
+                e.preventDefault();
+
+                document.querySelector('#answerbox').removeChild(classClone);
+
+                ajaxConfig.url = requestData.nextURL;
+                ajaxConfig.method = 'POST';
+                let answerPost = {
+                    answer: e.target.name
+                };
+                ajaxConfig.answer = JSON.stringify(answerPost);
+
+
+                Ajax.request(ajaxConfig, function(error, data) {
+
+                    let nextRequestData = JSON.parse(data);
+
+                    config.url = nextRequestData.nextURL;
+
+                    Questions(config);
+
+                });
+
+            });
+
+
         }
 
     });

@@ -1,8 +1,8 @@
 "use strict";
 
 let GameOver = require('./GameOver.js');
-
 let Questions = require('./Questions.js');
+let HighScore = require('./HighScore.js');
 
 function request(config, callback) {
 
@@ -22,6 +22,11 @@ function request(config, callback) {
         } else if (responseText.message === 'Wrong answer! :(') {
 
             GameOver();
+
+        } else if (responseText.nextURL === undefined) {
+
+            HighScore();
+
         }
 
         callback(null, req.responseText);
