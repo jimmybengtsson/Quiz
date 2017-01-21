@@ -4,6 +4,7 @@
 
 let Ajax = require('./Ajax.js');
 let GameOver = require('./GameOver.js');
+let Timer = require('./Timer.js');
 
 let config = {
 
@@ -16,7 +17,15 @@ let config = {
 
 function Questions(input, ajaxConfig) {
 
-    window.setTimeout(GameOver, 20000);
+    this.twentySeconds = setTimeout(GameOver, 20000);
+
+    Timer();
+
+    this.template = document.querySelector('#answerbox template');
+    this.clone = document.importNode(this.template.content, true);
+    this.qstClone = this.clone.querySelector('.questions');
+    this.qstListClone = this.clone.querySelector('.questionlist');
+    this.answerBox = document.querySelector('#answerbox');
 
     let answer = {
         answer: input.value
@@ -41,24 +50,23 @@ function Questions(input, ajaxConfig) {
 
             //If single answer.
 
-            let template = document.querySelector('#answerbox template');
-            let clone = document.importNode(template.content, true);
-            let classClone = clone.querySelector('.questions');
-            document.querySelector('#answerbox').appendChild(classClone);
+            this.answerBox.appendChild(this.qstClone);
 
             let textNode = document.createTextNode(requestData.question);
-            let qstTag = classClone.querySelector('.qst');
+            let qstTag = this.qstClone.querySelector('.qst');
             qstTag.appendChild(textNode);
 
-            let answerInput = classClone.querySelector('#answer');
-            let answerButton = classClone.querySelector('#submitanswer');
+            let answerInput = this.qstClone.querySelector('#answer');
+            let answerButton = this.qstClone.querySelector('#submitanswer');
 
 
             answerButton.addEventListener('click', function(e) {
 
+                clearTimeout(this.twentySeconds);
+
                 e.preventDefault();
 
-                document.querySelector('#answerbox').removeChild(classClone);
+                this.answerBox.removeChild(this.qstClone);
 
                 ajaxConfig.url = requestData.nextURL;
                 ajaxConfig.method = 'POST';
@@ -77,21 +85,19 @@ function Questions(input, ajaxConfig) {
 
                 });
 
-            });
+            }.bind(this));
+
         } else {
 
             // If multichoice answer.
 
-            let template = document.querySelector('#answerbox template');
-            let clone = document.importNode(template.content, true);
-            let classClone = clone.querySelector('.questionlist');
-            document.querySelector('#answerbox').appendChild(classClone);
+            this.answerBox.appendChild(this.qstListClone);
 
             let textNode = document.createTextNode(requestData.question);
-            let qstTag = classClone.querySelector('.qst');
+            let qstTag = this.qstListClone.querySelector('.qst');
             qstTag.appendChild(textNode);
 
-            let answerList = classClone.querySelector('.answerlist');
+            let answerList = this.qstListClone.querySelector('.answerlist');
             let alternatives = requestData.alternatives;
 
             let list = document.createElement('ul');
@@ -115,9 +121,11 @@ function Questions(input, ajaxConfig) {
 
             answerList.addEventListener('click', function(e){
 
+                clearTimeout(this.twentySeconds);
+
                 e.preventDefault();
 
-                document.querySelector('#answerbox').removeChild(classClone);
+                this.answerBox.removeChild(this.qstListClone);
 
                 ajaxConfig.url = requestData.nextURL;
                 ajaxConfig.method = 'POST';
@@ -136,9 +144,9 @@ function Questions(input, ajaxConfig) {
                     Questions(config);
 
                 });
-            });
+            }.bind(this));
         }
-    });
+    }.bind(this));
 }
 
 module.exports = Questions;

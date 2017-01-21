@@ -5,10 +5,12 @@
 
 function GameOver() {
 
-    let template = document.querySelector('#answerbox template');
-    let clone = document.importNode(template.content, true);
-    let gameOverClone = clone.querySelector('.gameover');
-    document.querySelector('#answerbox').appendChild(gameOverClone);
+    while (this.answerBox.firstChild) {
+        this.answerBox.removeChild(this.answerBox.firstChild);
+    }
+
+    let gameOverClone = this.clone.querySelector('.gameover');
+    this.answerBox.appendChild(gameOverClone);
 
     let button = gameOverClone.querySelector('.playagain');
 

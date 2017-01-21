@@ -1,7 +1,8 @@
-"use strict";
 
 let GameOver = require('./GameOver.js');
 let HighScore = require('./HighScore.js');
+let Questions = require('./Questions.js');
+
 
 function request(config, callback) {
 
@@ -31,7 +32,7 @@ function request(config, callback) {
         callback(null, req.responseText);
 
 
-    });
+    }.bind(this));
 
     req.open(config.method, config.url);
     req.setRequestHeader('Content-type', config.contentType);

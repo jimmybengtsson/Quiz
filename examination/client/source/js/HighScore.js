@@ -17,6 +17,11 @@ function HighScore() {
     this.user.end = new Date();
     this.user.total = (this.user.end - this.user.start)/1000;
 
+    let oldList = JSON.parse(localStorage.getItem('highScoreList')) || [];
+    oldList.push(this.user);
+    localStorage.setItem('highScoreList', JSON.stringify(oldList));
+
+
 
     console.log(this.user);
 

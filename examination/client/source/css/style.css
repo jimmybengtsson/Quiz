@@ -68,3 +68,11 @@ a:active {
 .name {
     font-size: 80%;
 }
+
+.timer {
+
+    font-size: 15px;
+    float: right;
+    margin-top: -5px;
+
+}
