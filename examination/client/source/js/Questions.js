@@ -2,9 +2,8 @@
  * Created by jimmybengtsson on 2016-11-30.
  */
 
-'use strict';
-
 let Ajax = require('./Ajax.js');
+let GameOver = require('./GameOver.js');
 
 let config = {
 
@@ -16,6 +15,8 @@ let config = {
 
 
 function Questions(input, ajaxConfig) {
+
+    window.setTimeout(GameOver, 20000);
 
     let answer = {
         answer: input.value
@@ -66,8 +67,6 @@ function Questions(input, ajaxConfig) {
                 };
                 ajaxConfig.answer = JSON.stringify(answerPost);
 
-                console.log(ajaxConfig.answer);
-
                 Ajax.request(ajaxConfig, function(error, data) {
 
                     let nextRequestData = JSON.parse(data);
@@ -95,8 +94,6 @@ function Questions(input, ajaxConfig) {
             let answerList = classClone.querySelector('.answerlist');
             let alternatives = requestData.alternatives;
 
-            console.log(alternatives);
-
             let list = document.createElement('ul');
 
             for (let i in alternatives) {
@@ -117,8 +114,6 @@ function Questions(input, ajaxConfig) {
             answerList.appendChild(list);
 
             answerList.addEventListener('click', function(e){
-
-                console.log(e.target.name);
 
                 e.preventDefault();
 

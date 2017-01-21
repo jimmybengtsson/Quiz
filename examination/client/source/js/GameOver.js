@@ -2,14 +2,15 @@
  * Created by jimmybengtsson on 2016-11-30.
  */
 
+
 function GameOver() {
 
     let template = document.querySelector('#answerbox template');
     let clone = document.importNode(template.content, true);
-    let classClone = clone.querySelector('.gameover');
-    document.querySelector('#answerbox').appendChild(classClone);
+    let gameOverClone = clone.querySelector('.gameover');
+    document.querySelector('#answerbox').appendChild(gameOverClone);
 
-    let button = classClone.querySelector('.playagain');
+    let button = gameOverClone.querySelector('.playagain');
 
     button.addEventListener('click', function() {
 

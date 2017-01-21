@@ -2,11 +2,8 @@
  * Created by jimmybengtsson on 2016-11-30.
  */
 
-'use strict';
 
 let Questions = require('./Questions.js');
-
-let saveToStorage = [];
 
 let config = {
     url: 'http://vhost3.lnu.se:20080/question/1'
@@ -40,7 +37,21 @@ function Name() {
     let submit = document.querySelector('#submit');
     let input = document.querySelector('#text');
 
+    this.user = {
+
+        name: '',
+        start: '',
+        end: '',
+        total: ''
+    };
+
     submit.addEventListener('click', function(e) {
+
+        let startTime = new Date();
+
+        this.user.name = input.value;
+        this.user.start = startTime;
+
 
         e.preventDefault();
 
@@ -49,16 +60,12 @@ function Name() {
         Questions(config);
 
 
-    });
+    }.bind(this));
 
 
 
 
 }
-
-
-
-
 
 module.exports = Name;
 
