@@ -15,10 +15,6 @@ function HighScore() {
     let classClone = clone.querySelector('.highscore');
     document.querySelector('#answerbox').appendChild(classClone);
 
-    // Start over button.
-
-    let button = classClone.querySelector('.playagain');
-
     // Set the end time for the highscore time and calculate total time.
 
     this.user.end = new Date();
@@ -28,10 +24,42 @@ function HighScore() {
     // Add the sessions name and time to the list and save to storage again.
 
     let oldList = JSON.parse(localStorage.getItem('highScoreList')) || [];
+
     oldList.push(this.user);
+
+    // Sort the list after total time.
+
+    function sortList(a,b) {
+        if (a.total < b.total)
+            return -1;
+        if (a.total > b.total)
+            return 1;
+        return 0;
+    }
+
+    oldList.sort(sortList);
+
+    // Only the 5 fastest in list.
+
+    if (oldList.length > 5) {
+        oldList.length = 5;
+    }
+
     localStorage.setItem('highScoreList', JSON.stringify(oldList));
 
-    console.log(this.user);
+    for (let i = 0; i < oldList.length; i++) {
+        let liClone = document.createElement('li');
+        liClone.appendChild(document.createTextNode(oldList[i].name + ' - ' + oldList[i].total + 's'));
+        classClone.querySelector('.highscoreList').appendChild(liClone);
+
+    }
+
+    console.log(oldList);
+
+    // Start over button.
+
+    let button = classClone.querySelector('.playagain');
+
 
     // Add listener for reload.
 

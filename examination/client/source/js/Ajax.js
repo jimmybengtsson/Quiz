@@ -39,7 +39,7 @@ function request(config, callback) {
 
             GameOver();
 
-            // Highscore of last question.
+            // Highscore if last question.
 
         } else if (responseText.nextURL === undefined) {
 
