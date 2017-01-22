@@ -2,32 +2,21 @@
  * Created by jimmybengtsson on 2016-11-30.
  */
 
+// Module imports
 
 let Questions = require('./Questions.js');
+
+// Config for the ajax call
 
 let config = {
     url: 'http://vhost3.lnu.se:20080/question/1'
 };
 
+// Function for name input.
+
 function Name() {
 
-    /*let pTag = document.getElementById('name');
-     let text = document.createTextNode('Please write your name here!');
-     pTag.appendChild(text);
-     let textInput = document.createElement('input');
-     pTag.appendChild(textInput);
-     let button = document.createElement('button');
-     let buttonText = document.createTextNode('Lets Play!');
-     button.appendChild(buttonText);
-     pTag.appendChild(button);
-
-     button.addEventListener('click', function() {
-
-     while (pTag.hasChildNodes()) {
-     pTag.removeChild(pTag.firstChild);
-     }
-     Questions();
-     })*/
+    // Import name template
 
     let template = document.querySelector('#answerbox template');
     let clone = document.importNode(template.content, true);
@@ -37,17 +26,21 @@ function Name() {
     let submit = document.querySelector('#submit');
     let input = document.querySelector('#text');
 
+    // Adding a user for high score list.
+
     this.user = {
 
         name: '',
         start: '',
         end: '',
-        total: ''
+        total: '',
     };
 
     submit.addEventListener('click', function(e) {
 
         let startTime = new Date();
+
+        // Assign name from input and start time.
 
         this.user.name = input.value;
         this.user.start = startTime;
@@ -56,6 +49,8 @@ function Name() {
         e.preventDefault();
 
         document.querySelector('#answerbox').removeChild(classClone);
+
+        // Calling Questions function.
 
         Questions(config);
 

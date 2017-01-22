@@ -2,9 +2,13 @@
  * Created by jimmybengtsson on 2016-11-30.
  */
 
+// Module imports.
+
 let Ajax = require('./Ajax.js');
 let GameOver = require('./GameOver.js');
 let Timer = require('./Timer.js');
+
+// Adding properties to the ajax config.
 
 let config = {
 
@@ -14,12 +18,19 @@ let config = {
 
 };
 
+// Function for the questions.
 
 function Questions(input, ajaxConfig) {
 
+    // Set 20 s.
+
     this.twentySeconds = setTimeout(GameOver, 20000);
 
+    // Adding a countdown timer.
+
     Timer();
+
+    // Import questions template
 
     this.template = document.querySelector('#answerbox template');
     this.clone = document.importNode(this.template.content, true);
@@ -39,16 +50,22 @@ function Questions(input, ajaxConfig) {
 
     };
 
+    // Make call to the server.
+
     Ajax.request(ajaxConfig, function(error, data) {
 
         let requestData = JSON.parse(data);
 
+        // Error message.
+
         if(error) {
             throw new Error('Network Error' + error);
 
+            //If single answer.
+
         } else if (requestData.alternatives === undefined) {
 
-            //If single answer.
+            // Import single question template and append it to answerbox-div.
 
             this.answerBox.appendChild(this.qstClone);
 
@@ -59,14 +76,23 @@ function Questions(input, ajaxConfig) {
             let answerInput = this.qstClone.querySelector('#answer');
             let answerButton = this.qstClone.querySelector('#submitanswer');
 
+            // Add listener for answer input.
 
             answerButton.addEventListener('click', function(e) {
 
+                // Remove the 20 s to gameover countdown.
+
                 clearTimeout(this.twentySeconds);
+
+                // Prevent reload.
 
                 e.preventDefault();
 
+                // Remove the answered question.
+
                 this.answerBox.removeChild(this.qstClone);
+
+                // Change parameters to get next question.
 
                 ajaxConfig.url = requestData.nextURL;
                 ajaxConfig.method = 'POST';
@@ -74,6 +100,8 @@ function Questions(input, ajaxConfig) {
                     answer: answerInput.value
                 };
                 ajaxConfig.answer = JSON.stringify(answerPost);
+
+                // Send answer to server for the next question.
 
                 Ajax.request(ajaxConfig, function(error, data) {
 
@@ -87,9 +115,11 @@ function Questions(input, ajaxConfig) {
 
             }.bind(this));
 
+            // If multi choice answer.
+
         } else {
 
-            // If multichoice answer.
+            // Import multi question template and append it to answerbox-div.
 
             this.answerBox.appendChild(this.qstListClone);
 
@@ -116,16 +146,25 @@ function Questions(input, ajaxConfig) {
                 list.appendChild(item);
             }
 
-
             answerList.appendChild(list);
+
+            // Add listener for answer input.
 
             answerList.addEventListener('click', function(e){
 
+                // Remove the 20 s to gameover countdown.
+
                 clearTimeout(this.twentySeconds);
+
+                // Prevent reload.
 
                 e.preventDefault();
 
+                // Remove the answered question.
+
                 this.answerBox.removeChild(this.qstListClone);
+
+                // Change parameters to get next question.
 
                 ajaxConfig.url = requestData.nextURL;
                 ajaxConfig.method = 'POST';
@@ -134,6 +173,7 @@ function Questions(input, ajaxConfig) {
                 };
                 ajaxConfig.answer = JSON.stringify(answerPost);
 
+                // Send answer to server for the next question.
 
                 Ajax.request(ajaxConfig, function(error, data) {
 
