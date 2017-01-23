@@ -8,12 +8,14 @@ let Name = require('./Name.js');
 
 function HighScore() {
 
+    while (this.answerBox.firstChild) {
+        this.answerBox.removeChild(this.answerBox.firstChild);
+    }
+
     // Add highscore template.
 
-    let template = document.querySelector('#answerbox template');
-    let clone = document.importNode(template.content, true);
-    let classClone = clone.querySelector('.highscore');
-    document.querySelector('#answerbox').appendChild(classClone);
+    let highscoreClone = this.clone.querySelector('.highscore');
+    this.answerBox.appendChild(highscoreClone);
 
     // Set the end time for the highscore time and calculate total time.
 
@@ -47,18 +49,18 @@ function HighScore() {
 
     localStorage.setItem('highScoreList', JSON.stringify(oldList));
 
+    // Append top 5 to highscore list.
+
     for (let i = 0; i < oldList.length; i++) {
         let liClone = document.createElement('li');
         liClone.appendChild(document.createTextNode(oldList[i].name + ' - ' + oldList[i].total + 's'));
-        classClone.querySelector('.highscoreList').appendChild(liClone);
-
+        highscoreClone.querySelector('.highscoreList').appendChild(liClone);
     }
 
-    console.log(oldList);
 
     // Start over button.
 
-    let button = classClone.querySelector('.playagain');
+    let button = highscoreClone.querySelector('.playagain');
 
 
     // Add listener for reload.

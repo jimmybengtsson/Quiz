@@ -18,13 +18,11 @@ let config = {
 
 };
 
+let twentySeconds;
+
 // Function for the questions.
 
 function Questions(input, ajaxConfig) {
-
-    // Set 20 s.
-
-    this.twentySeconds = setTimeout(GameOver, 20000);
 
     // Adding a countdown timer.
 
@@ -65,6 +63,10 @@ function Questions(input, ajaxConfig) {
 
         } else if (requestData.alternatives === undefined) {
 
+            // Set 20 s.
+
+            twentySeconds = setTimeout(GameOver, 20000);
+
             // Import single question template and append it to answerbox-div.
 
             this.answerBox.appendChild(this.qstClone);
@@ -82,7 +84,7 @@ function Questions(input, ajaxConfig) {
 
                 // Remove the 20 s to gameover countdown.
 
-                clearTimeout(this.twentySeconds);
+                window.clearTimeout(twentySeconds);
 
                 // Prevent reload.
 
@@ -91,6 +93,7 @@ function Questions(input, ajaxConfig) {
                 // Remove the answered question.
 
                 this.answerBox.removeChild(this.qstClone);
+                this.answerBox.removeChild(document.querySelector('.timer'));
 
                 // Change parameters to get next question.
 
@@ -118,6 +121,10 @@ function Questions(input, ajaxConfig) {
             // If multi choice answer.
 
         } else {
+
+            // Set 20 s.
+
+            twentySeconds = setTimeout(GameOver, 20000);
 
             // Import multi question template and append it to answerbox-div.
 
@@ -154,7 +161,7 @@ function Questions(input, ajaxConfig) {
 
                 // Remove the 20 s to gameover countdown.
 
-                clearTimeout(this.twentySeconds);
+                window.clearTimeout(twentySeconds);
 
                 // Prevent reload.
 
@@ -163,6 +170,7 @@ function Questions(input, ajaxConfig) {
                 // Remove the answered question.
 
                 this.answerBox.removeChild(this.qstListClone);
+                this.answerBox.removeChild(document.querySelector('.timer'));
 
                 // Change parameters to get next question.
 
