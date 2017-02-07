@@ -5,12 +5,6 @@
 
 function GameOver() {
 
-    // Remove nodes from answerbox-div if there is any.
-
-    while (this.answerBox.firstChild) {
-        this.answerBox.removeChild(this.answerBox.firstChild);
-    }
-
     // Add the gameover template.
 
     let gameOverClone = this.clone.querySelector('.gameover');

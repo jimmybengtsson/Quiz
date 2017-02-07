@@ -4,13 +4,7 @@
 
 // Module imports.
 
-let Name = require('./Name.js');
-
 function HighScore() {
-
-    while (this.answerBox.firstChild) {
-        this.answerBox.removeChild(this.answerBox.firstChild);
-    }
 
     // Add highscore template.
 

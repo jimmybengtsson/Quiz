@@ -30,14 +30,6 @@ header {
 
 }
 
-#questions {
-    text-align: center;
-    font-family: 'Gloria Hallelujah', cursive;
-    font-size: 200%;
-    margin-top: 20px;
-}
-
-
 
 .answerlist ul {
     list-style-type: none;

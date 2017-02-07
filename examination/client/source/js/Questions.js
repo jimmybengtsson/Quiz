@@ -24,10 +24,6 @@ let twentySeconds;
 
 function Questions(input, ajaxConfig) {
 
-    // Adding a countdown timer.
-
-    Timer();
-
     // Import questions template
 
     this.template = document.querySelector('#answerbox template');
@@ -62,6 +58,10 @@ function Questions(input, ajaxConfig) {
             //If single answer.
 
         } else if (requestData.alternatives === undefined) {
+
+            // Adding a countdown timer.
+
+            Timer();
 
             // Set 20 s.
 
@@ -121,6 +121,10 @@ function Questions(input, ajaxConfig) {
             // If multi choice answer.
 
         } else {
+
+            // Adding a countdown timer.
+
+            Timer();
 
             // Set 20 s.
 
